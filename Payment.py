@@ -21,8 +21,7 @@ genesis_block = Block([genesis_transaction], "0")
 blockchain = [genesis_block]
 
 class Pay:
-
-    def add_transaction(sender, recipient, amount, ):
+    def add_transaction(sender, recipient, amount ):
         new_transaction = Transaction(sender.verifying_key.to_string().hex(), recipient.verifying_key.to_string().hex(), amount)
         new_transaction.sign_transaction(sender.to_string().hex())
 
@@ -33,4 +32,7 @@ class Pay:
             new_block = Block([new_transaction], last_block.hash)
             new_block.mine_block(2)  # Adjust the difficulty as needed
             blockchain.append(new_block)
+
+    def new_transaction(sender, recipient, amount):
+        add_transaction(keys[sender], keys[recipient], amount )
     

@@ -2,6 +2,7 @@ import hashlib
 import ecdsa
 from Block import Block
 from Transaction import Transaction
+from Payment import Pay
 
 # Generate six pairs of public and private keys for users
 keys = [ecdsa.SigningKey.generate(curve=ecdsa.SECP256k1) for _ in range(6)]
@@ -24,10 +25,10 @@ blockchain = [genesis_block]
 
 
 # Perform transactions between keys
-add_transaction(keys[1], keys[2], 10)
-add_transaction(keys[2], keys[3], 5)
-add_transaction(keys[1], keys[4], 8)
-add_transaction(keys[4], keys[5], 3)
+pay.add_transaction(keys[1], keys[2], 10)
+pay.add_transaction(keys[2], keys[3], 5)
+pay.add_transaction(keys[1], keys[4], 8)
+pay.add_transaction(keys[4], keys[5], 3)
 
 # Verify transactions
 for block in blockchain:

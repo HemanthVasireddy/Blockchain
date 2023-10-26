@@ -30,7 +30,7 @@ class Block:
         data = f"{self.merkle_root}{self.prev_block_hash}{self.nonce}".encode()
         return hashlib.sha256(data).hexdigest()
 
-    def mine_block(self, difficulty):
-        while self.hash[:difficulty] != "0" * difficulty:
+    def mine_block(self):
+        while self.hash[:4] != "0" * 4:
             self.nonce += 1
             self.hash = self.calculate_hash()

@@ -31,9 +31,3 @@ blockchain = Blockchain()
 blockchain.addblock(genesis_block,0)
 
 
-
-# Print the blockchain
-for block in blockchain:
-    print(f"Block Hash: {block.hash}")
-    for transaction in block.transactions:
-        print(f"\n  Transaction: Sender({transaction.sender}) \n -> Recipient({transaction.recipient}),\n Amount: {transaction.amount}")

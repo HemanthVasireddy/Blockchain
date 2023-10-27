@@ -1,12 +1,12 @@
 
 import hashlib
-import ecdsa
-
+from typing import List
+from Transaction import Transaction
 
 
 # Define a simple Block class
 class Block:
-    def __init__(self, transactions, prev_block_hash):
+    def __init__(self, transactions:List[Transaction], prev_block_hash):
         self.transactions = transactions
         self.prev_block_hash = prev_block_hash
         self.merkle_root = self.calculate_merkle_root()

@@ -1,11 +1,10 @@
 import hashlib
-import ecdsa
 from User import Tx
-
+from typing import List
 
 # Define a simple Transaction class
 class Transaction:
-    def __init__(self, txins, txouts, amount, signature,prev_transaction_hash=None):
+    def __init__(self, txins : List, txouts : List, amount, signature,prev_transaction_hash):
         self.txins = txins
         self.txouts = txouts
         self.amount = amount

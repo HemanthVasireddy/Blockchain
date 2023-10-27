@@ -1,4 +1,3 @@
-from Transaction import Transaction
 import ecdsa
 import hashlib
 
@@ -10,11 +9,11 @@ class Tx:
 
 
 class User:
-    def __init__(self, balance=0):
+    def __init__(self):
         self.privatekey=ecdsa.SigningKey.generate(curve=ecdsa.SECP256k1)
         self.publickey=self.privatekey.get_verifying_key()
         self.wallet=[]
-        self.balance=balance
+        self.balance=0
 
 
     def addtowallet(self,transaction):
@@ -41,7 +40,7 @@ class User:
         previous_transaction_hash=hashlib.sha256(str(txins).encode()).digest()
         transaction_hash = hashlib.sha256(str(tx).encode()).digest()
         signature=self.privatekey.sign(transaction_hash)
-        
+
 
 
 

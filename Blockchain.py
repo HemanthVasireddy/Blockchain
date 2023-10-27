@@ -5,6 +5,13 @@ from Transaction import Transaction
 import ecdsa
 from datetime import datetime
 
+class User:
+    def __init__(self):
+        self.privatekey=ecdsa.SigningKey.generate(curve=ecdsa.SECP256k1)
+        self.publickey=self.privatekey.get_verifying_key()
+        self.wallet=[]
+        self.balance=0
+
 
 class Block:
     def __init__(self, transactions:List[Transaction], prev_block_hash):
@@ -51,12 +58,8 @@ class Block:
                 users[txout[0].to_string()].balance+=txout[1]
                 users[txout[0].to_string()].wallet.append(transaction)
 
-class User:
-    def __init__(self):
-        self.privatekey=ecdsa.SigningKey.generate(curve=ecdsa.SECP256k1)
-        self.publickey=self.privatekey.get_verifying_key()
-        self.wallet=[]
-        self.balance=0
+
+
 
 
 

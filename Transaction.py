@@ -1,6 +1,11 @@
 import hashlib
-from User import Tx
 from typing import List
+
+class Tx:
+    def __init__(self,txins,txouts,amount):
+        self.txins=txins
+        self.txouts=txouts
+        self.amount=amount
 
 # Define a simple Transaction class
 class Transaction:

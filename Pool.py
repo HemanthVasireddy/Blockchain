@@ -1,14 +1,8 @@
-
+from Transaction import Transaction
+from Blockchain import Blockchain
 import hashlib
 from typing import List
-from Transaction import Transaction
-from datetime import datetime
-from typing import Dict
-from User import User
 
-
-
-# Define a simple Block class
 class Block:
     def __init__(self, transactions:List[Transaction], prev_block_hash):
         self.transactions = transactions
@@ -37,20 +31,21 @@ class Block:
             return None
         tx_hashes = [hashlib.sha256(str(transaction).encode()).hexdigest() for transaction in transactions]
         print(tx_hashes)
-        print('--------------------------------------------------')
         return self.merkle_root(tx_hashes)
 
     def calculate_hash(self):
         data = f"{self.merkle_root}{self.prev_block_hash}{self.nonce}".encode()
         return hashlib.sha256(data).hexdigest()
 
-    def mine_block(self,users:Dict[str,User]):
-        while self.hash[:4] != "0" * 4:
-            self.nonce += 1
-            self.hash = self.calculate_hash()
-        self.mine_time=datetime.now()
-        for transaction in self.transactions:
-            for txout in transaction.txouts:
-                users[txout[0].to_string()].balance+=txout[1]
-                users[txout[0].to_string()].wallet.append(transaction)
-            
+class Pool:
+    def __init__(self):
+        self.transactions=[]
+
+    def add_transaction(self,transaction:Transaction,blockchain:Blockchain,users):
+        if len(self.transactions)<4:
+            self.transactions.append(transaction)
+        else:
+            blockchain.addblock(Block(self.transactions,blockchain.chain[-1].hash),users)
+            self.transactions=[]
+            self.transactions.append(transaction)
+        print("Added Transaction to the pool")

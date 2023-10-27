@@ -13,7 +13,7 @@ class User:
         self.wallet=[]
         self.balance=0
 
-# Define a simple Block class
+
 class Block:
     def __init__(self, transactions:List[Transaction], prev_block_hash):
         self.transactions = transactions
@@ -66,7 +66,6 @@ class Blockchain:
     def addblock(self,block:Block,users:Dict[str,User]):
         block.mine_block(users)
         self.chain.append(block)
-        
 
     def show_chain(self):
         for block in self.chain:

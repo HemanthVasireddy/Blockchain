@@ -91,8 +91,8 @@ class Blockchain:
                 users[txout[0].to_string()].wallet.append(transaction)
             for txin in transaction.txins:
                 print(txin)
-                users[txin[0].txouts[txin[1]][0].to_string()].balance = users[txin[0].txouts[txin[1]][0].to_string()].balance - txin[0].txouts[txin[1]][1]
-                #print(users[txin[0].txouts[txin[1]][0].to_string()])
+                users[txin[0].txouts[txin[1]][0].to_string()].processing_balance=0
+                users[txin[0].txouts[txin[1]][0].to_string()].change=0
                 users[txin[0].txouts[txin[1]][0].to_string()].pending.remove(txin[0])
 
 

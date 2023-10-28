@@ -20,6 +20,8 @@ class User:
         self.wallet : List[Transaction]=[]
         self.pending : List[Transaction]=[]
         self.balance=0
+        self.processing_balance=0
+        self.change=0
 
 
 
@@ -44,9 +46,15 @@ class User:
         print("Collected the required transactions from wallet....")
         if target>amount:
             txouts=[[recipient,amount],[self.publickey,target-amount]]
+            self.change+=target-amount
+            self.processing_balance+=target
+            self.balance=self.balance-target
             print(txouts)
         elif target==amount:
             txouts=[[recipient,amount]]
+            self.processing_balance+=target
+            self.balance=self.balance-target
+
         tx=Tx(txins,txouts,target)
         previous_transaction_hash=hashlib.sha256(str(txins).encode()).digest()
         transaction_hash = hashlib.sha256(str(tx).encode()).digest()

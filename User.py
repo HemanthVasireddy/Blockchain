@@ -69,6 +69,14 @@ class User:
                 if txout[0]==self.publickey:
                     print(transaction.id() + "  " + str(txout[1]))
         print("Total available balance is : " + str(self.balance))
+        print("Change that will be recieved after mining the next block : ",self.change)
+        print("---------------PENDING WALLET-----------------")
+        for transaction in self.pending:
+            for txout in transaction.txouts:
+                if txout[0]==self.publickey:
+                    print(transaction.id() + "  " + str(txout[1]))
+        print("Total Processing balance is : " + str(self.processing_balance))
+
             
 
 

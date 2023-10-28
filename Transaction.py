@@ -16,8 +16,11 @@ class Transaction:
         self.prev_transaction_hash = prev_transaction_hash
         self.signature = signature
 
+
+    
     def id(self):
-        return hashlib.blake2b(self).hexdigest()
+        
+        return hashlib.blake2b(str(self).encode()).hexdigest()
 
 
     def get_transaction_data(self):

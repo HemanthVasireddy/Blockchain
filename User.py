@@ -3,7 +3,8 @@ import hashlib
 from Pool import Pool
 from Transaction import Transaction
 from Blockchain import Blockchain
-from typing import Dict
+from typing import List
+import base64
 
 class Tx:
     def __init__(self,txins,txouts,amount):
@@ -16,7 +17,8 @@ class User:
     def __init__(self):
         self.privatekey=ecdsa.SigningKey.generate(curve=ecdsa.SECP256k1)
         self.publickey=self.privatekey.get_verifying_key()
-        self.wallet=[]
+        self.wallet : List[Transaction]=[]
+        self.pending : List[Transaction]=[]
         self.balance=0
 
 
@@ -31,11 +33,14 @@ class User:
         while target<amount:
             #print("Inside the first loop")
             for transaction in self.wallet:
+                index=0
                 for txout in transaction.txouts:
                     if txout[0]==self.publickey:
                         target+=txout[1]
-                        txins.append(transaction)
-                self.wallet.remove(transaction)
+                        txins.append([transaction,index])
+                        self.pending.append(transaction)
+                        self.wallet.remove(transaction)
+                    index+=1
         print("Collected the required transactions from wallet....")
         if target>amount:
             txouts=[[recipient,amount],[self.publickey,target-amount]]
@@ -48,6 +53,16 @@ class User:
         signature=self.privatekey.sign(transaction_hash)
         print("Adding transaction to the pool.....")
         pool.add_transaction(Transaction(txins,txouts,target, signature, previous_transaction_hash),blockchain,users)
+
+    def show_wallet(self):
+        print("---------------WALLET-----------------")
+        for transaction in self.wallet:
+            for txout in transaction.txouts:
+                if txout[0]==self.publickey:
+                    print(transaction.id() + "  " + str(txout[1]))
+        print("Total available balance is : " + str(self.balance))
+            
+
 
 
 

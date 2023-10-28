@@ -69,14 +69,30 @@ class Blockchain:
         self.chain=[]
 
     def addblock(self,block:Block,users:Dict[str,User]):
-        block.mine_block(users)
+        self.mine_block(block,users)
         self.chain.append(block)
 
     def show_chain(self):
         for block in self.chain:
             print(f"Block Hash: {block.hash}")
-            for transaction in block.transactions:
-                print(transaction.get_transaction_data())
+            
+    def show_block(self,index):
+        for transaction in self.chain[index].transactions:
+            print(transaction.get_transaction_data())
 
+    def mine_block(self,block:Block,users:Dict[str,User]):
+        while block.hash[:4] != "0" * 4:
+            block.nonce += 1
+            block.hash = block.calculate_hash()
+        block.mine_time=datetime.now()
+        for transaction in block.transactions:
+            for txout in transaction.txouts:
+                users[txout[0].to_string()].balance+=txout[1]
+                users[txout[0].to_string()].wallet.append(transaction)
+            for txin in transaction.txins:
+                print(txin)
+                users[txin[0].txouts[txin[1]][0].to_string()].balance = users[txin[0].txouts[txin[1]][0].to_string()].balance - txin[0].txouts[txin[1]][1]
+                #print(users[txin[0].txouts[txin[1]][0].to_string()])
+                users[txin[0].txouts[txin[1]][0].to_string()].pending.remove(txin[0])
 
 

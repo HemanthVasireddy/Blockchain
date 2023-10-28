@@ -42,10 +42,10 @@ class Pool:
         self.transactions=[]
 
     def add_transaction(self,transaction:Transaction,blockchain:Blockchain,users):
-        if len(self.transactions)<4:
+        if len(self.transactions)<3:
             self.transactions.append(transaction)
         else:
+            self.transactions.append(transaction)
             blockchain.addblock(Block(self.transactions,blockchain.chain[-1].hash),users)
             self.transactions=[]
-            self.transactions.append(transaction)
         print("Added Transaction to the pool")

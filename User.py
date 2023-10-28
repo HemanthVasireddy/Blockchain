@@ -70,7 +70,7 @@ class User:
                     print(transaction.id() + "  " + str(txout[1]))
         print("Total available balance is : " + str(self.balance))
         print("Change that will be recieved after mining the next block : ",self.change)
-        print("---------------PENDING WALLET-----------------")
+        print("PENDING Transactions-----------------")
         for transaction in self.pending:
             for txout in transaction.txouts:
                 if txout[0]==self.publickey:

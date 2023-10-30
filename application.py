@@ -11,7 +11,7 @@ from Pool import Pool
 users={}
 Bank = User()
 users[Bank.publickey.to_string()]=Bank
-Bank_balance = 100
+Bank_balance = 10000000
 # Create a transaction pool for the transactions to wait until the next block is mined
 pool=Pool()
 # Create a genesis transaction
@@ -29,7 +29,7 @@ genesisouts.append([Bank.publickey,Bank_balance])
 initial_transaction = Transaction(genesisins,genesisouts,Bank_balance,genesis_signature, prev_transaction_hash)
 
 # Adding multiple transactions to genesis block
-for i in range(1000):
+for i in range(10):
     initial_transaction.amount+=10
     genesis_transactions.append(initial_transaction)
 
@@ -38,7 +38,7 @@ for i in range(1000):
 # Create a genesis block
 genesis_block = Block(genesis_transactions, "0")
 genesis_block.mine_block(users)
-print(genesis_block)
+genesis_block.show_block()
 # Create a blockchain with the genesis block
 blockchain = Blockchain()
 blockchain.chain.append(genesis_block)
@@ -144,6 +144,9 @@ blockchain.show_chain()
 # Printing last block
 print("Last Block")
 print(blockchain.chain[-1].show_block())
+print("Transactions in the Last Block")
+print(blockchain.chain[-1].show_transactions())
+
 print("Bank Balance : " , Bank.balance,"Processing Balance : ",Bank.processing_balance,"change due : ",Bank.change)
 print("Aakash Balance : " , aakash.balance,"Processing Balance : ",aakash.processing_balance,"change due : ",aakash.change)
 print("Adam Balance : " , Adam.balance,"Processing Balance : ",Adam.processing_balance,"change due : ",Adam.change)

@@ -18,9 +18,23 @@ class Block:
         self.nonce = 0
         self.hash = self.calculate_hash()
         self.mine_time = None
-    
+
+    def show_block(self):
+        print("Transactions:")
+        print(self.transactions)
+        print("Previous Block Hash:")
+        print(self.prev_block_hash)
+        print("Merkle Root:")
+        print(self.merkle_root)
+        print("Nonce:")
+        print(self.nonce)
+        print("Hash:")
+        print(self.hash)
+        
+    def show_transactions(self):
+        for transaction in self.transactions:
+            print(transaction)
     def merkle_root(self,tx_hashes):
-        print("Inside merkle_root function")
         if len(tx_hashes) == 1:
             print(tx_hashes[0])
             return tx_hashes[0]
@@ -36,8 +50,6 @@ class Block:
         if not transactions:
             return None
         tx_hashes = [hashlib.sha256(str(transaction).encode()).hexdigest() for transaction in transactions]
-        print(tx_hashes)
-        print('--------------------------------------------------')
         return self.merkle_root(tx_hashes)
 
     def calculate_hash(self):

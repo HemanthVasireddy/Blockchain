@@ -15,8 +15,7 @@ class Block:
 
     def show_block(self):
         print("Transactions:")
-        for transaction in self.transactions:
-            print(transaction)
+        print(self.transactions)
         print("Previous Block Hash:")
         print(self.prev_block_hash)
         print("Merkle Root:")
@@ -26,9 +25,10 @@ class Block:
         print("Hash:")
         print(self.hash)
         
-    
+    def show_transactions(self):
+        for transaction in self.transactions:
+            print(transaction)
     def merkle_root(self,tx_hashes):
-        print("Inside merkle_root function")
         if len(tx_hashes) == 1:
             print(tx_hashes[0])
             return tx_hashes[0]
@@ -44,7 +44,6 @@ class Block:
         if not transactions:
             return None
         tx_hashes = [hashlib.sha256(str(transaction).encode()).hexdigest() for transaction in transactions]
-        print(tx_hashes)
         return self.merkle_root(tx_hashes)
 
     def calculate_hash(self):

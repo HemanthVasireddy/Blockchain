@@ -234,13 +234,12 @@ print("\n")
 
 
 # Printing last block
-print("Last Block")
+print("Printing all Blocks")
 print("=====================")
-print(blockchain.chain[-1].show_block())
-print("\n")
-print("Transactions in the Last Block")
-print("====================================")
-print(blockchain.chain[-1].show_transactions())
+for block in blockchain.chain:
+    block.show_block()
+    print("------------------------------------")
+
 print("\n")
 print("user0 Balance : " , user0.balance,"Processing Balance : ",user0.processing_balance,"change due : ",user0.change)
 print("user1 Balance : " , user1.balance,"Processing Balance : ",user1.processing_balance,"change due : ",user1.change)

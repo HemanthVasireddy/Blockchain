@@ -12,6 +12,20 @@ class Block:
         self.nonce = 0
         self.hash = self.calculate_hash()
         self.mine_time = None
+
+    def show_block(self):
+        print("Transactions:")
+        for transaction in self.transactions:
+            print(transaction)
+        print("Previous Block Hash:")
+        print(self.prev_block_hash)
+        print("Merkle Root:")
+        print(self.merkle_root)
+        print("Nonce:")
+        print(self.nonce)
+        print("Hash:")
+        print(self.hash)
+        
     
     def merkle_root(self,tx_hashes):
         print("Inside merkle_root function")
@@ -36,6 +50,7 @@ class Block:
     def calculate_hash(self):
         data = f"{self.merkle_root}{self.prev_block_hash}{self.nonce}".encode()
         return hashlib.sha256(data).hexdigest()
+    
 
 class Pool:
     def __init__(self):
@@ -49,3 +64,6 @@ class Pool:
             blockchain.addblock(Block(self.transactions,blockchain.chain[-1].hash),users)
             self.transactions=[]
         print("Added Transaction to the pool")
+
+    
+

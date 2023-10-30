@@ -168,7 +168,7 @@ print("====================")
 print("user2's wallet")
 user2.show_wallet()
 print("\n")
-print("user4's wallet")
+print("user4's wallet  ")
 user4.show_wallet()
 print("\n")
 

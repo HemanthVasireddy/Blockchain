@@ -31,7 +31,6 @@ initial_transaction = Transaction(genesisins,genesisouts,user0_balance,genesis_s
 print("Adding multiple transactions to genesis block")
 print("=============================================")
 for i in range(10):
-    initial_transaction.amount+=10
     genesis_transactions.append(initial_transaction)
 
 

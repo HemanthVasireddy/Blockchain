@@ -7,7 +7,7 @@ from Blockchain import Blockchain
 import datetime
 from Pool import Pool
 
-# Generate six pairs of public and private keys for users
+
 users={}
 Bank = User()
 users[Bank.publickey.to_string()]=Bank
@@ -18,7 +18,6 @@ pool=Pool()
 tx=Tx([], [[Bank.publickey,Bank_balance]], '0'*256)
 # Hashing the transaction data (transaction inputs, transaction outputs, Previous transaction hash, Amount)
 transaction_hash = hashlib.sha256(str(tx).encode()).digest()
-# Creating digital signature using private key
 genesis_signature=Bank.privatekey.sign(transaction_hash)
 prev_transaction_hash='0'*256
 genesisins=[]

@@ -234,7 +234,7 @@ print("\n")
 
 
 # Printing last block
-print("Printing all Blocks")
+print("Printing all Blocks.")
 print("=====================")
 for block in blockchain.chain:
     block.show_block()
